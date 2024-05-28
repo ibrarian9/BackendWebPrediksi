@@ -51,9 +51,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers(HttpMethod.POST,"/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/forecast/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/**").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/**").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/api/**").authenticated()
+                        .requestMatchers("/forecast/**").permitAll()
+                        .requestMatchers("/dataActual/**").permitAll()
                         .anyRequest().authenticated()
         );
         http.exceptionHandling(ex -> ex.authenticationEntryPoint(unauthHandler))
