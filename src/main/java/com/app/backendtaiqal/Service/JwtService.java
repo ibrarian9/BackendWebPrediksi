@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
@@ -29,9 +30,12 @@ public class JwtService {
         UserDetailsImpl userDetails = (UserDetailsImpl) auth.getPrincipal();
 
         return Jwts.builder()
-                .setSubject(userDetails.getName())
+                .setSubject(userDetails.getUsers().getNama())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + jwtExpire))
+                .claim("role", userDetails.getAuthorities().stream()
+                        .map(GrantedAuthority::getAuthority)
+                        .toList().getFirst())
                 .signWith(key(), SignatureAlgorithm.HS256)
                 .compact();
     }

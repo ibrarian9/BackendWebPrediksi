@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Entity
 @NoArgsConstructor
@@ -23,11 +25,14 @@ public class Users {
     private String email;
     @Column(name = "password", length = 120, nullable = false)
     private String password;
+    @ManyToMany
+    private List<Role> roles;
 
-    public Users(String nama, String username, String email, String password) {
+    public Users(String nama, String username, String email, String password, List<Role> roles) {
         this.nama = nama;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.roles = roles;
     }
 }
