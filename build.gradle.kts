@@ -26,7 +26,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-validation")
-
     // Jwt
     implementation("org.jetbrains:annotations:24.0.0")
     implementation("io.jsonwebtoken:jjwt-api:0.11.5")

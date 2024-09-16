@@ -92,7 +92,7 @@ public class UsersServiceImpl implements UsersService {
                 registerDTO.getEmail(),
                 passwordEncoder.encode(registerDTO.getPassword()),
                 roleRepository.findByName(registerDTO.getRoles())
-                );
+        );
         repo.save(user);
     }
 }
