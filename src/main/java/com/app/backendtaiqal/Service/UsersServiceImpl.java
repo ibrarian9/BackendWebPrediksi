@@ -80,7 +80,7 @@ public class UsersServiceImpl implements UsersService {
                 userDetails.getUsername(),
                 userDetails.getUsers().getNama(),
                 userDetails.getUsers().getEmail(),
-                roles.getFirst()
+                roles.get(0)
         ));
     }
 

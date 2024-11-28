@@ -1,5 +1,6 @@
 package com.app.backendtaiqal.Service;
 
+import com.app.backendtaiqal.Models.Forecast;
 import com.app.backendtaiqal.Models.Month;
 import com.app.backendtaiqal.Models.Production;
 import com.app.backendtaiqal.Models.Rumus;
@@ -20,4 +21,6 @@ public interface ForecastService {
     ResponseEntity<Map<String, Object>> addMonth(Month month);
     ResponseEntity<Map<String, Object>> editMonth(Long id, Month month);
     ResponseEntity<?> deleteMonth(Long id);
+    ResponseEntity<Map<String, Object>> getAllForecast(Long id);
+    ResponseEntity<Map<String, Object>> setForecast(Long id, Forecast forecast);
 }

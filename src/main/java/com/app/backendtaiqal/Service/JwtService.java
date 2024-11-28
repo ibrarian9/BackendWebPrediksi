@@ -35,7 +35,7 @@ public class JwtService {
                 .setExpiration(new Date(new Date().getTime() + jwtExpire))
                 .claim("role", userDetails.getAuthorities().stream()
                         .map(GrantedAuthority::getAuthority)
-                        .toList().getFirst())
+                        .toList().get(0))
                 .signWith(key(), SignatureAlgorithm.HS256)
                 .compact();
     }

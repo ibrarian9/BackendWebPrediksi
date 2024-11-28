@@ -1,8 +1,10 @@
 package com.app.backendtaiqal.Service;
 
+import com.app.backendtaiqal.Models.Forecast;
 import com.app.backendtaiqal.Models.Month;
 import com.app.backendtaiqal.Models.Production;
 import com.app.backendtaiqal.Models.Rumus;
+import com.app.backendtaiqal.Repository.ForecastRepository;
 import com.app.backendtaiqal.Repository.MonthRepository;
 import com.app.backendtaiqal.Repository.ProductionRepository;
 import com.app.backendtaiqal.Repository.RumusRepository;
@@ -25,6 +27,7 @@ public class ForecastServiceImpl implements ForecastService {
     private final ProductionRepository productionRepo;
     private final RumusRepository rumusRepo;
     private final MonthRepository monthRepo;
+    private final ForecastRepository forecastRepo;
 
     @Override
     public ResponseEntity<Map<String, Object>> getAllProduct() {
@@ -157,5 +160,28 @@ public class ForecastServiceImpl implements ForecastService {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Month not found");
         }
+    }
+
+    @Override
+    public ResponseEntity<Map<String, Object>> getAllForecast(Long id) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("httpStatus", HttpStatus.OK.value());
+        Optional<Forecast> forecast = forecastRepo.findById(id);
+        forecast.ifPresent(value -> response.put("data", value));
+        return ResponseEntity.ok(response);
+    }
+
+    @Override
+    public ResponseEntity<Map<String, Object>> setForecast(Long id, Forecast forecast) {
+        Map<String, Object> response = new HashMap<>();
+        Optional<Forecast> optionalForecast = forecastRepo.findById(id);
+        if (optionalForecast.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        Forecast newForecast = optionalForecast.get();
+        newForecast.setJumlahForecast(forecast.getJumlahForecast());
+        response.put("httpStatus", HttpStatus.OK.value());
+        response.put("data", forecastRepo.save(newForecast));
+        return ResponseEntity.ok(response);
     }
 }

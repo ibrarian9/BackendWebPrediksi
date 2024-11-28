@@ -1,5 +1,6 @@
 package com.app.backendtaiqal.Controllers;
 
+import com.app.backendtaiqal.Models.Forecast;
 import com.app.backendtaiqal.Models.Month;
 import com.app.backendtaiqal.Models.Production;
 import com.app.backendtaiqal.Models.Rumus;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.Map;
 
 @AllArgsConstructor
@@ -122,6 +124,24 @@ public class ForecastControllers {
     public ResponseEntity<?> deleteMonth(@PathVariable Long id) {
         try {
             return forecastService.deleteMonth(id);
+        } catch (Exception e){
+            return handleException(e);
+        }
+    }
+
+    @GetMapping(path = "/forecast/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getJumlahForecast(@PathVariable Long id) {
+        try {
+            return forecastService.getAllForecast(id);
+        } catch (Exception e){
+            return handleException(e);
+        }
+    }
+
+    @PutMapping(path = "/forecast/{id}" , consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> setJumlahForecast(@PathVariable Long id, @RequestBody Forecast forecast) {
+        try {
+            return forecastService.setForecast(id, forecast);
         } catch (Exception e){
             return handleException(e);
         }
